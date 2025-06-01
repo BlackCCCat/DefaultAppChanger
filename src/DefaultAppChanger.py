@@ -28,7 +28,7 @@ CATEGORIES = {
     "其他": sorted([".plist", ".gitconfig", ".dockerfile", ".makefile", ".dockerignore", ".gitattributes", ".gitignore", ".editorconfig"])
 }
 
-pattern = r'(text|edit|code|note|studio|ide|vim|charm|emacs|cursor)'
+pattern = r'(text|edit|code|note|studio|ide|vim|charm|emacs|cursor|markdown)'
 
 def app_list():
     """ 
