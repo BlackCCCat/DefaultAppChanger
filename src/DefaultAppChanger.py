@@ -63,8 +63,14 @@ def get_appid(app):
 
 
 def duti(appid, ext):
-    duti_app = shutil.which('duti')
-    if duti_app is None:
+    is_bundled = hasattr(sys, '_MEIPASS')
+    if is_bundled:
+        duti_app = '/opt/homebrew/bin/duti'
+    else:
+        duti_app = shutil.which('duti')
+
+    if not duti_app or not os.path.exists(duti_app):
+        logging.error("未找到 duti 命令")
         return False
     resp = os.system(f"{duti_app} -s " + appid + " " + ext + " all")
     return True if resp == 0 else False
