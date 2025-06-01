@@ -34,9 +34,13 @@ pip install PyQt6
 
 ## 🚀 运行方式
 
+- 运行Python脚本
+
 ```bash
 python DefaultAppChanger.py
 ```
+
+- 通过打包后的app执行
 
 ---
 
@@ -46,6 +50,7 @@ python DefaultAppChanger.py
 * 文件类型分为多个分类，每类下有子项，支持全选、反选
 * 支持滚动区域展示所有内容
 * “更改打开方式”按钮仅在勾选项非空时可用
+* AI生成的图标
 
 ---
 
