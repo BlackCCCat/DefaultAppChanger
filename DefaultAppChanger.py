@@ -65,9 +65,13 @@ def get_appid(app):
 def duti(appid, ext):
     is_bundled = hasattr(sys, '_MEIPASS')
     if is_bundled:
-        duti_app = '/opt/homebrew/bin/duti'
+        base_path = os.path.dirname(sys.executable)
+        duti_app = os.path.join(base_path, '../Resources/resources/duti')
+        # duti_app = '/opt/homebrew/bin/duti'
     else:
-        duti_app = shutil.which('duti')
+        duti_app = os.path.join(os.path.dirname(__file__), 'resources', 'duti')
+        if not os.path.exists(duti_app):
+            duti_app = shutil.which('duti')
 
     if not duti_app or not os.path.exists(duti_app):
         logging.error("未找到 duti 命令")
@@ -117,7 +121,7 @@ class MainWindow(QWidget):
         self.apps = app_list()
         self.checkboxes = {}         # 子项: QCheckBox
         self.group_checkboxes = {}   # 类别: QCheckBox
-        self.check_duti()
+        # self.check_duti()
         self.initUI()
         
 
@@ -211,16 +215,16 @@ class MainWindow(QWidget):
         any_checked = any(cb.isChecked() for cb in self.checkboxes.values())
         self.applyButton.setEnabled(any_checked)
 
-    def check_duti(self):
-        is_bundled = hasattr(sys, '_MEIPASS')
-        if is_bundled:
-            duti_app = '/opt/homebrew/bin/duti'
-        else:
-            duti_app = shutil.which('duti')
+    # def check_duti(self):
+    #     is_bundled = hasattr(sys, '_MEIPASS')
+    #     if is_bundled:
+    #         duti_app = '/opt/homebrew/bin/duti'
+    #     else:
+    #         duti_app = shutil.which('duti')
 
-        if not duti_app or not os.path.exists(duti_app):
-            QMessageBox.information(self, "错误", "duti 命令未找到，请安装 duti： \n brew install duti")
-            sys.exit(1)
+    #     if not duti_app or not os.path.exists(duti_app):
+    #         QMessageBox.information(self, "错误", "duti 命令未找到，请安装 duti： \n brew install duti")
+    #         sys.exit(1)
         
 
     def apply(self):
