@@ -117,7 +117,9 @@ class MainWindow(QWidget):
         self.apps = app_list()
         self.checkboxes = {}         # 子项: QCheckBox
         self.group_checkboxes = {}   # 类别: QCheckBox
+        self.check_duti()
         self.initUI()
+        
 
     def initUI(self):
         self.setWindowTitle("Default Apps Changer")
@@ -208,6 +210,18 @@ class MainWindow(QWidget):
     def update_apply_button_state(self):
         any_checked = any(cb.isChecked() for cb in self.checkboxes.values())
         self.applyButton.setEnabled(any_checked)
+
+    def check_duti(self):
+        is_bundled = hasattr(sys, '_MEIPASS')
+        if is_bundled:
+            duti_app = '/opt/homebrew/bin/duti'
+        else:
+            duti_app = shutil.which('duti')
+
+        if not duti_app or not os.path.exists(duti_app):
+            QMessageBox.information(self, "错误", "duti 命令未找到，请安装 duti： \n brew install duti")
+            sys.exit(1)
+        
 
     def apply(self):
         selected_app = self.app_list_cb.currentText()
