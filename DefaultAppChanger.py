@@ -25,7 +25,7 @@ CATEGORIES = {
         ".sql", ".ddl", ".dml", ".r", ".R", ".m"
         ], key=str.lower),
     "标记语言格式": sorted([".md", ".rst", ".tex"]),
-    "其他": sorted([".plist", ".gitconfig", ".dockerfile", ".makefile", ".dockerignore", ".gitattributes", ".gitignore", ".editorconfig"])
+    "其他": sorted([".plist"])
 }
 
 pattern = r'(text|edit|code|note|studio|ide|vim|charm|emacs|cursor|markdown)'
