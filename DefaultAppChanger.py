@@ -21,17 +21,17 @@ CATEGORIES = {
     "基础文本格式": sorted([".txt", ".csv", ".tsv", ".json", ".xml", ".yaml", ".yml", ".ini", ".conf", ".toml", ".log"]),
     "编程语言格式": sorted([
         ".c", ".cpp", ".h", ".hpp", ".java", ".py", ".js", ".mjs", ".cjs", ".ts", ".html", ".css",
-        ".php", ".rb", ".go", ".rs", ".swift", ".kt", ".kts", ".sh", ".bash", ".zsh", ".lua", 
+        ".php", ".rb", ".go", ".rs", ".swift", ".kt", ".kts", ".sh", ".bash", ".zsh", ".lua",
         ".sql", ".ddl", ".dml", ".r", ".R", ".m"
         ], key=str.lower),
     "标记语言格式": sorted([".md", ".rst", ".tex"]),
     "其他": sorted([".plist"])
 }
 
-pattern = r'(text|edit|code|note|studio|ide|vim|charm|emacs|cursor|markdown)'
+pattern = r'(text|edit|code|note|studio|ide|vim|charm|emacs|cursor|markdown|zed)'
 
 def app_list():
-    """ 
+    """
     获取 /Applications 和 /System/Applications 中的所有应用程序名称
     Returns:
         list -- 排序后的应用程序列表
@@ -42,12 +42,12 @@ def app_list():
         if app.endswith('.app') and not app.startswith('.'):
             icon = get_icon(APP_FOLDER, app)
             app_list.update({app: icon})
-    all_app_list = os.listdir(SYSTEM_APP_FOLDER) 
+    all_app_list = os.listdir(SYSTEM_APP_FOLDER)
     for app in all_app_list:
         if app.endswith('.app') and not app.startswith('.'):
             icon = get_icon(SYSTEM_APP_FOLDER, app)
             app_list.update({app: icon})
-    
+
     # 过滤掉不需要的应用程序
     app_list = {app: icon for app, icon in app_list.items() if re.search(pattern, app, re.IGNORECASE)}
     app_list = dict(sorted(app_list.items()))
@@ -77,7 +77,7 @@ def get_icon(app_dir, app_name):
 
     # 如果没有找到 .icns 文件，返回默认图标
     return QIcon()
-     
+
 
 
 def modify(duti_app, selected_app, selected_items) -> None:
@@ -100,7 +100,7 @@ def modify(duti_app, selected_app, selected_items) -> None:
         else:
             logging.info(f"{item} 的打开方式已更改为 {selected_app}")
     return failed
-    
+
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -110,7 +110,7 @@ class MainWindow(QWidget):
         self.group_checkboxes = {}   # 类别: QCheckBox
         self.duti_app = self.check_duti()
         self.initUI()
-        
+
 
     def initUI(self):
         self.setWindowTitle("Default Apps Changer")
@@ -218,8 +218,8 @@ class MainWindow(QWidget):
             sys.exit(1)
 
         return duti_app
-            
-        
+
+
 
     def apply(self):
         selected_app = self.app_list_cb.currentText()
@@ -237,5 +237,3 @@ if __name__ == '__main__':
     win = MainWindow()
     win.show()
     sys.exit(app.exec())
-
-
