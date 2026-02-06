@@ -25,13 +25,30 @@ jobs:
           python -m pip install --upgrade pip
           python -m pip install pyinstaller PyQt6
 
+      - name: Build icns from source image
+        run: |
+          mkdir -p build/icon.iconset
+          # Normalize to PNG first (works for PNG renamed as .icns or true icns)
+          sips -s format png "icon/defaultappchanger.icns" --out "build/icon.png"
+          sips -z 16 16     "build/icon.png" --out "build/icon.iconset/icon_16x16.png"
+          sips -z 32 32     "build/icon.png" --out "build/icon.iconset/icon_16x16@2x.png"
+          sips -z 32 32     "build/icon.png" --out "build/icon.iconset/icon_32x32.png"
+          sips -z 64 64     "build/icon.png" --out "build/icon.iconset/icon_32x32@2x.png"
+          sips -z 128 128   "build/icon.png" --out "build/icon.iconset/icon_128x128.png"
+          sips -z 256 256   "build/icon.png" --out "build/icon.iconset/icon_128x128@2x.png"
+          sips -z 256 256   "build/icon.png" --out "build/icon.iconset/icon_256x256.png"
+          sips -z 512 512   "build/icon.png" --out "build/icon.iconset/icon_256x256@2x.png"
+          sips -z 512 512   "build/icon.png" --out "build/icon.iconset/icon_512x512.png"
+          sips -z 1024 1024 "build/icon.png" --out "build/icon.iconset/icon_512x512@2x.png"
+          iconutil -c icns "build/icon.iconset" -o "build/icon.icns"
+
       - name: Build app
         run: |
           python -m PyInstaller \
             --noconfirm \
             --windowed \
             --name "DefaultAppsChanger" \
-            --icon "icon/defaultappchanger.icns" \
+            --icon "build/icon.icns" \
             --add-data "resources/duti:resources" \
             DefaultAppChanger.py
 
