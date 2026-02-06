@@ -27,7 +27,13 @@ jobs:
 
       - name: Build app
         run: |
-          python -m PyInstaller DefaultAppsChanger.spec --noconfirm
+          python -m PyInstaller \
+            --noconfirm \
+            --windowed \
+            --name "DefaultAppsChanger" \
+            --icon "icon/defaultappchanger.icns" \
+            --add-data "resources/duti:resources" \
+            DefaultAppChanger.py
 
       - name: Package app
         run: |
