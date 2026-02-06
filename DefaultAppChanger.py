@@ -20,7 +20,7 @@ SYSTEM_APP_FOLDER = "/System/Applications"
 CATEGORIES = {
     "基础文本格式": sorted([".txt", ".csv", ".tsv", ".json", ".xml", ".yaml", ".yml", ".ini", ".conf", ".toml", ".log"]),
     "编程语言格式": sorted([
-        ".c", ".cpp", ".h", ".hpp", ".java", ".py", ".js", ".mjs", ".cjs", ".ts", ".html", ".css",
+        ".c", ".cpp", ".h", ".hpp", ".java", ".py", ".js", ".mjs", ".cjs", ".ts", ".tsx", ".html", ".css",
         ".php", ".rb", ".go", ".rs", ".swift", ".kt", ".kts", ".sh", ".bash", ".zsh", ".lua",
         ".sql", ".ddl", ".dml", ".r", ".R", ".m"
         ], key=str.lower),
